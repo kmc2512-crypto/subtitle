@@ -10,9 +10,6 @@ interface VideoPreviewProps {
 }
 
 const SAMPLE_TEXT = "字幕プレビュー：サイズ・色・位置はここで確認できます";
-
-// バックエンドのASS生成はPlayResY=1080を前提にしているため、
-// プレビュー欄の表示高さに比例させることで実際の書き出しサイズに近づける
 const ASS_PLAY_RES_Y = 1080;
 
 export default function VideoPreview({
@@ -45,8 +42,6 @@ export default function VideoPreview({
     if (videoRef.current) setCurrentTime(videoRef.current.currentTime);
   };
 
-  // 再生位置に該当する字幕があればそれを表示、なければ先頭の字幕、
-  // 字幕がまだ無ければサンプルテキストでスタイルだけ確認できるようにする
   const activeSegment =
     segments.find((seg) => currentTime >= seg.start && currentTime <= seg.end) ??
     segments[0];
@@ -56,7 +51,6 @@ export default function VideoPreview({
   const previewFontSize = Math.max(8, style.fontSize * scale);
   const previewOutlineWidth = Math.max(0, style.outlineWidth * scale);
 
-  // 縁取りを複数方向のtext-shadowを重ねて疑似的に再現する
   const shadowLayers: string[] = [];
   if (previewOutlineWidth > 0) {
     const w = previewOutlineWidth;
@@ -100,6 +94,7 @@ export default function VideoPreview({
               >
                 <span
                   style={{
+                    fontFamily: `"${style.fontFamily}", sans-serif`,
                     fontSize: `${previewFontSize}px`,
                     color: style.textColor,
                     textShadow: shadowLayers.join(", "),
@@ -128,7 +123,7 @@ export default function VideoPreview({
       </div>
       {videoUrl && (
         <p className="text-xs text-gray-400 mt-2">
-          ※ サイズ・色・位置の確認用シミュレーションです。実際の焼き込み結果とは改行位置などが若干異なる場合があります。
+          ※ サイズ・色・位置・フォントの確認用シミュレーションです。実際の焼き込み結果とは改行位置などが若干異なる場合があります。
         </p>
       )}
     </div>
