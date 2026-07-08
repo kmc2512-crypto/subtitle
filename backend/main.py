@@ -149,6 +149,7 @@ class SegmentIn(BaseModel):
 
 
 class StyleIn(BaseModel):
+    fontFamily: str = "Hiragino Sans"
     fontSize: int = 64
     textColor: str = "#FFFFFF"
     outlineColor: str = "#000000"
