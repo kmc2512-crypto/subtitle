@@ -1,0 +1,18 @@
+# OS
+.DS_Store
+
+# Backend
+backend/__pycache__/
+backend/*.pyc
+backend/.venv/
+backend/venv/
+backend/temp/*
+!backend/temp/.gitkeep
+
+# Frontend
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env
+frontend/.env.local
+frontend/next-env.d.ts
