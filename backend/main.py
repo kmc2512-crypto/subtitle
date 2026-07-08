@@ -34,10 +34,21 @@ MAX_UPLOAD_BYTES = 500 * 1024 * 1024  # MVPの目安上限（500MB）
 
 app = FastAPI(title="Subtitle Video App API")
 
-# Next.jsの開発サーバー(localhost:3000)からのアクセスを許可する
+# Next.jsの開発サーバーと、同じWi-Fi上のスマホからの開発アクセスを許可する
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_origin_regex=(
+        r"^http://("
+        r"localhost|127\.0\.0\.1|"
+        r"10\.\d{1,3}\.\d{1,3}\.\d{1,3}|"
+        r"172\.(1[6-9]|2\d|3[0-1])\.\d{1,3}\.\d{1,3}|"
+        r"192\.168\.\d{1,3}\.\d{1,3}"
+        r")(:\d+)?$"
+    ),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

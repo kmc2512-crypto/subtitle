@@ -87,6 +87,55 @@ NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
 
 ---
 
+## iPhoneなど同じWi-Fi上のスマホで試す方法
+
+重い処理（Whisperでの文字起こし、FFmpegでの書き出し）はMac側で実行し、スマホは操作画面として使います。
+
+1. MacのIPアドレスを確認します。
+
+```bash
+ipconfig getifaddr en0
+```
+
+2. バックエンドを外部端末から見える形で起動します。
+
+```bash
+cd backend
+source .venv/bin/activate
+uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
+3. フロントエンドのAPI接続先をMacのIPにします。
+
+```bash
+cd frontend
+cat > .env.local <<'EOF'
+NEXT_PUBLIC_API_BASE_URL=http://MacのIPアドレス:8000
+EOF
+```
+
+例:
+
+```bash
+NEXT_PUBLIC_API_BASE_URL=http://192.168.1.20:8000
+```
+
+4. フロントエンドも外部端末から見える形で起動します。
+
+```bash
+npm run dev:host
+```
+
+5. iPhoneのSafariまたはChromeで以下を開きます。
+
+```text
+http://MacのIPアドレス:3000
+```
+
+スマホ側では動画の選択、アップロード進捗、文字起こし待機、字幕編集、スタイル調整、書き出し待機、完成動画の確認とダウンロードができます。動画処理自体はMac側で行われるため、スマホ単体でWhisperやFFmpegを動かす必要はありません。
+
+---
+
 ## Whisperモデルの準備方法
 
 faster-whisperはモデルを**初回実行時に自動でダウンロード**します（Hugging Face経由、無料）。

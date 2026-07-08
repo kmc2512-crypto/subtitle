@@ -39,15 +39,23 @@ export type AppStatus =
   | "done"
   | "error";
 
+export type WorkflowStep = "upload" | "transcribe" | "edit" | "export" | "done";
+
+export interface JobStatusResponse {
+  job_id: string;
+  status: AppStatus | string;
+  error?: string | null;
+}
+
 export const STATUS_LABELS: Record<AppStatus, string> = {
-  idle: "待機中",
+  idle: "アップロード待ち",
   uploading: "動画をアップロード中...",
   uploaded: "アップロード完了",
   extracting_audio: "音声を抽出中...",
-  transcribing: "文字起こし中...（動画の長さによって数分かかります）",
-  transcribed: "文字起こし完了。字幕を編集できます",
+  transcribing: "音声を文字起こししています",
+  transcribed: "字幕を編集できます",
   generating_subtitle: "字幕ファイルを生成中...",
-  rendering: "字幕付き動画を書き出し中...（画質優先のため時間がかかります）",
-  done: "書き出し完了！ダウンロードできます",
+  rendering: "書き出し中...",
+  done: "完成しました",
   error: "エラーが発生しました",
 };
