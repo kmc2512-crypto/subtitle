@@ -101,7 +101,7 @@ def generate_ass(segments: List[Segment], style: StyleSettings, output_path: Pat
         "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, "
         "BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, "
         "BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n"
-        f"Style: Default,Noto Sans JP,{style.fontSize},{primary_color},&H000000FF,"
+        f"Style: Default,{style.fontFamily},{style.fontSize},{primary_color},&H000000FF,"
         f"{outline_color},&H00000000,1,0,0,0,100,100,0,0,{border_style},"
         f"{style.outlineWidth},{shadow_depth},{alignment},40,40,60,1\n"
         "\n"
