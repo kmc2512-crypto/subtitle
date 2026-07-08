@@ -1,6 +1,6 @@
 "use client";
 
-import { SubtitlePosition, SubtitleStyle } from "@/lib/types";
+import { FONT_OPTIONS, SubtitlePosition, SubtitleStyle } from "@/lib/types";
 
 interface StylePanelProps {
   style: SubtitleStyle;
@@ -26,6 +26,23 @@ export default function StylePanel({
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-4 space-y-4">
       <p className="text-sm font-medium text-gray-700">字幕デザイン設定</p>
+
+      <div>
+        <label className="block text-xs text-gray-600 mb-1">フォント</label>
+        <select
+          value={style.fontFamily}
+          disabled={disabled}
+          onChange={(e) => update({ fontFamily: e.target.value })}
+          className="w-full text-sm border border-gray-300 rounded-md px-2 py-1.5
+            focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50"
+        >
+          {FONT_OPTIONS.map((f) => (
+            <option key={f.value} value={f.value}>
+              {f.label}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <div>
         <label className="block text-xs text-gray-600 mb-1">文字色</label>
